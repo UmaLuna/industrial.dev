@@ -1,5 +1,6 @@
 import UIKit
 import StorageService
+import SnapKit
 
 class ProfileHeaderView: UIView {
 
@@ -96,7 +97,7 @@ class ProfileHeaderView: UIView {
         statusLabel.text = statusText.isEmpty ? "Статус пустой" : statusText
     }
 
-     private func setupConstraints() {
+    /*    private func setupConstraints() {
      NSLayoutConstraint.activate([
      avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
      avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
@@ -121,3 +122,35 @@ class ProfileHeaderView: UIView {
      ])
      }
      }
+     */
+
+    private func setupConstraints() {
+        avatarImageView.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview().inset(16)
+            make.width.height.equalTo(100)
+        }
+
+        fullNameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(27)
+            make.leading.equalTo(avatarImageView.snp.trailing).offset(16)
+        }
+
+        statusLabel.snp.makeConstraints { make in
+            make.top.equalTo(fullNameLabel.snp.bottom).offset(10)
+            make.leading.equalTo(fullNameLabel)
+        }
+
+        statusTextField.snp.makeConstraints { make in
+            make.top.equalTo(statusLabel.snp.bottom).offset(10)
+            make.leading.equalTo(fullNameLabel)
+            make.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+        }
+
+        setStatusButton.snp.makeConstraints { make in
+            make.top.equalTo(statusTextField.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(16)
+            make.height.equalTo(40)
+        }
+    }
+}
